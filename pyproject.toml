@@ -1,0 +1,29 @@
+[build-system]
+requires = ["setuptools>=42", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "tree-sitter-aardvark"
+description = "Parser for the Aardvark language grammar, used also by AaScript."
+version = "0.1.0"
+keywords = ["incremental", "parsing", "tree-sitter", "aardvark"]
+classifiers = [
+  "Intended Audience :: Developers",
+  "Topic :: Software Development :: Compilers",
+  "Topic :: Text Processing :: Linguistic",
+  "Typing :: Typed",
+]
+authors = [{ name = "Jack Faller", email = "jack.t.faller@gmail.com" }]
+requires-python = ">=3.10"
+license.text = "GPL-3.0"
+readme = "README.md"
+
+[project.urls]
+Homepage = "https://github.com/jack-faller/tree-sitter-aardvark.git"
+
+[project.optional-dependencies]
+core = ["tree-sitter~=0.24"]
+
+[tool.cibuildwheel]
+build = "cp310-*"
+build-frontend = "build"

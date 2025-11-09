@@ -1,0 +1,40 @@
+{
+  "$schema": "https://tree-sitter.github.io/tree-sitter/assets/schemas/config.schema.json",
+  "grammars": [
+    {
+      "name": "aardvark",
+      "camelcase": "Aardvark",
+      "title": "Aardvark",
+      "scope": "source.aardvark",
+      "file-types": [
+        "vrk"
+      ],
+      "injection-regex": "^aardvark$",
+      "class-name": "TreeSitterAardvark"
+    }
+  ],
+  "metadata": {
+    "version": "0.1.0",
+    "license": "GPL-3.0",
+    "description": "Parser for the Aardvark language grammar, used also by AaScript.",
+    "authors": [
+      {
+        "name": "Jack Faller",
+        "email": "jack.t.faller@gmail.com",
+        "url": "https://jackfaller.xyz/"
+      }
+    ],
+    "links": {
+      "repository": "https://github.com/jack-faller/tree-sitter-aardvark.git"
+    }
+  },
+  "bindings": {
+    "c": true,
+    "go": true,
+    "node": true,
+    "python": true,
+    "rust": true,
+    "swift": true,
+    "zig": false
+  }
+}
