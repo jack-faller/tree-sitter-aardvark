@@ -47,6 +47,6 @@ module.exports = grammar({
     pair: $ => seq(":", $._form, $._form),
     string: $ => seq('"', repeat(choice($.string_escape, /[^\\"]/)), '"'),
     string_escape: $ => (/\\[0abntr<>\\]/),
-    number: $ => (/[+-]?\d+(\.\d+(e[+-]?\d+)?)?/),
+    number: $ => token(prec(1, /[+-]?\d+(\.\d+(e[+-]?\d+)?)?/)),
   }
 });
