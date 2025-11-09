@@ -379,11 +379,6 @@
     }
   },
   {
-    "type": "symbol",
-    "named": true,
-    "fields": {}
-  },
-  {
     "type": "\"",
     "named": false
   },
@@ -421,6 +416,10 @@
   },
   {
     "type": "string_escape",
+    "named": true
+  },
+  {
+    "type": "symbol",
     "named": true
   },
   {

@@ -40,7 +40,7 @@
         }
       ]
     },
-    "_form_shared": {
+    "_form": {
       "type": "CHOICE",
       "members": [
         {
@@ -70,15 +70,6 @@
         {
           "type": "SYMBOL",
           "name": "number"
-        }
-      ]
-    },
-    "_form": {
-      "type": "CHOICE",
-      "members": [
-        {
-          "type": "SYMBOL",
-          "name": "_form_shared"
         },
         {
           "type": "SYMBOL",
@@ -91,126 +82,22 @@
       "members": [
         {
           "type": "SYMBOL",
-          "name": "_form_shared"
+          "name": "_form"
         },
         {
-          "type": "SYMBOL",
-          "name": "_symbol_not_dot"
-        }
-      ]
-    },
-    "_symbol_shared": {
-      "type": "TOKEN",
-      "content": {
-        "type": "SEQ",
-        "members": [
-          {
-            "type": "CHOICE",
-            "members": [
-              {
-                "type": "SEQ",
-                "members": [
-                  {
-                    "type": "STRING",
-                    "value": "."
-                  },
-                  {
-                    "type": "CHOICE",
-                    "members": [
-                      {
-                        "type": "CHOICE",
-                        "members": [
-                          {
-                            "type": "PATTERN",
-                            "value": "\\\\[⟨⟩\\[\\](){};:s\"\\\\]"
-                          },
-                          {
-                            "type": "PATTERN",
-                            "value": "[^⟨⟩\\[\\](){};:\\s\"\\\\.]"
-                          }
-                        ]
-                      },
-                      {
-                        "type": "STRING",
-                        "value": "."
-                      }
-                    ]
-                  }
-                ]
-              },
-              {
-                "type": "CHOICE",
-                "members": [
-                  {
-                    "type": "PATTERN",
-                    "value": "\\\\[⟨⟩\\[\\](){};:s\"\\\\]"
-                  },
-                  {
-                    "type": "PATTERN",
-                    "value": "[^⟨⟩\\[\\](){};:\\s\"\\\\.]"
-                  }
-                ]
-              }
-            ]
-          },
-          {
-            "type": "REPEAT",
-            "content": {
-              "type": "CHOICE",
-              "members": [
-                {
-                  "type": "CHOICE",
-                  "members": [
-                    {
-                      "type": "PATTERN",
-                      "value": "\\\\[⟨⟩\\[\\](){};:s\"\\\\]"
-                    },
-                    {
-                      "type": "PATTERN",
-                      "value": "[^⟨⟩\\[\\](){};:\\s\"\\\\.]"
-                    }
-                  ]
-                },
-                {
-                  "type": "STRING",
-                  "value": "."
-                }
-              ]
-            }
-          }
-        ]
-      }
-    },
-    "symbol": {
-      "type": "CHOICE",
-      "members": [
-        {
-          "type": "STRING",
-          "value": "."
-        },
-        {
-          "type": "SYMBOL",
-          "name": "_symbol_shared"
-        }
-      ]
-    },
-    "_symbol_not_dot": {
-      "type": "ALIAS",
-      "content": {
-        "type": "CHOICE",
-        "members": [
-          {
+          "type": "ALIAS",
+          "content": {
             "type": "STRING",
             "value": "\\."
           },
-          {
-            "type": "SYMBOL",
-            "name": "_symbol_shared"
-          }
-        ]
-      },
-      "named": true,
-      "value": "symbol"
+          "named": true,
+          "value": "symbol"
+        }
+      ]
+    },
+    "symbol": {
+      "type": "PATTERN",
+      "value": "(\\\\[\\[\\](){};:\\s\"\\\\]|[^\\[\\](){};:\\s\"\\\\])+"
     },
     "_lambda_content": {
       "type": "SEQ",
@@ -228,8 +115,15 @@
           "value": "parameters"
         },
         {
-          "type": "STRING",
-          "value": "."
+          "type": "TOKEN",
+          "content": {
+            "type": "PREC",
+            "value": 1,
+            "content": {
+              "type": "STRING",
+              "value": "."
+            }
+          }
         },
         {
           "type": "CHOICE",
