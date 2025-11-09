@@ -2,7 +2,7 @@
 #include "tree_sitter/alloc.h"
 #include "tree_sitter/array.h"
 
-enum TokenType {LONG_STRING, LONG_STRING_ESCAPE};
+enum TokenType {LONG_STRING, LONG_STRING_ESCAPED};
 
 void * tree_sitter_aardvark_external_scanner_create() {
     return NULL;
@@ -41,57 +41,49 @@ bool tree_sitter_aardvark_external_scanner_scan(
     ArrayN32 label;
     uint32_t *buffer = NULL;
     array_init(&label);
-    if (valid_symbols[LONG_STRING_ESCAPE]) {
-        lexer->result_symbol = LONG_STRING_ESCAPE;
-    }
     if (valid_symbols[LONG_STRING]) {
         lexer->result_symbol = LONG_STRING;
-        if (lexer->eof(lexer)) RETURN(false);
-        switch (lexer->lookahead) {
-            default:
-            RETURN(false);
-        case langle:
-            array_push(&label, langle);
-            do {
-                lexer->advance(lexer, false);
-                if (lexer->eof(lexer)) RETURN(false);
-                array_push(&label, lexer->lookahead);
-            } while (lexer->lookahead != rangle);
+        array_push(&label, langle);
+        while (lexer->lookahead != rangle) {
             array_push(&label, lexer->lookahead);
-            break;
-        case '\\':
-            lexer->advance(lexer, false);
-            if (lexer->eof(lexer) || lexer->lookahead != '<') RETURN(false);
-            array_push(&label, '\\');
-            array_push(&label, '<');
-            int progress = 0;
-            static const uint32_t vals[2] = {'\\', '>'};
-            do {
-                lexer->advance(lexer, false);
-                if (lexer->eof(lexer)) RETURN(false);
-                array_push(&label, lexer->lookahead);
-                progress = lexer->lookahead == vals[progress]
-                           ? progress + 1 : 0;
-            } while (progress < 2);
-            break;
-        }
-        // `label` now contains the full label text.
-        buffer = ts_calloc(label.size, sizeof(uint32_t));
-        unsigned int head = 0;
-        for (int i = 0; i < label.size; ++i) {
             lexer->advance(lexer, false);
             if (lexer->eof(lexer)) RETURN(false);
-            buffer[i] = lexer->lookahead;
         }
-        while (!equal(&label, buffer, head)) {
-            lexer->advance(lexer, false);
-            if (lexer->eof(lexer)) RETURN(false);
-            buffer[head] = lexer->lookahead;
-            head = (head + 1) % label.size;
-        }
-        lexer->advance(lexer, false);
-        RETURN(true);
+        array_push(&label, lexer->lookahead);
+        goto read_until_label;
     }
+    if (valid_symbols[LONG_STRING_ESCAPED]) {
+        lexer->result_symbol = LONG_STRING_ESCAPED;
+        array_push(&label, '\\');
+        array_push(&label, '<');
+        int progress = 0;
+        static const uint32_t vals[2] = {'\\', '>'};
+        while (progress < 2) {
+            printf("%c\n", (char)lexer->lookahead);
+            array_push(&label, lexer->lookahead);
+            progress = lexer->lookahead == vals[progress]
+                       ? progress + 1 : 0;
+            lexer->advance(lexer, false);
+            if (lexer->eof(lexer)) RETURN(false);
+        }
+        goto read_until_label;
+    }
+read_until_label:
+    buffer = ts_calloc(label.size, sizeof(uint32_t));
+    unsigned int head = 0;
+    for (int i = 0; i < label.size; ++i) {
+        lexer->advance(lexer, false);
+        if (lexer->eof(lexer)) RETURN(false);
+        buffer[i] = lexer->lookahead;
+    }
+    while (!equal(&label, buffer, head)) {
+        lexer->advance(lexer, false);
+        if (lexer->eof(lexer)) RETURN(false);
+        buffer[head] = lexer->lookahead;
+        head = (head + 1) % label.size;
+    }
+    lexer->advance(lexer, false);
+    RETURN(true);
 #undef RETURN
  end:
     if (buffer) ts_free(buffer);

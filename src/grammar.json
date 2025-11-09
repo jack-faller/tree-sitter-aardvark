@@ -69,11 +69,46 @@
         },
         {
           "type": "SYMBOL",
+          "name": "long_string"
+        },
+        {
+          "type": "SYMBOL",
           "name": "number"
         },
         {
           "type": "SYMBOL",
           "name": "symbol"
+        }
+      ]
+    },
+    "long_string": {
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "SEQ",
+          "members": [
+            {
+              "type": "PATTERN",
+              "value": "⟨"
+            },
+            {
+              "type": "SYMBOL",
+              "name": "_long_string"
+            }
+          ]
+        },
+        {
+          "type": "SEQ",
+          "members": [
+            {
+              "type": "PATTERN",
+              "value": "\\\\<"
+            },
+            {
+              "type": "SYMBOL",
+              "name": "_long_string_escaped"
+            }
+          ]
         }
       ]
     },
@@ -97,7 +132,7 @@
     },
     "symbol": {
       "type": "PATTERN",
-      "value": "(\\\\[\\[\\](){};:\\s\"\\\\]|[^\\[\\](){};:\\s\"\\\\])+"
+      "value": "(\\\\[⟨⟩\\[\\](){};:\\s\"\\\\]|[^⟨⟩\\[\\](){};:\\s\"\\\\])+"
     },
     "_lambda_content": {
       "type": "SEQ",
@@ -246,7 +281,7 @@
       "type": "SEQ",
       "members": [
         {
-          "type": "STRING",
+          "type": "PATTERN",
           "value": "\""
         },
         {
@@ -266,7 +301,7 @@
           }
         },
         {
-          "type": "STRING",
+          "type": "PATTERN",
           "value": "\""
         }
       ]
@@ -302,11 +337,11 @@
   "externals": [
     {
       "type": "SYMBOL",
-      "name": "long_string"
+      "name": "_long_string"
     },
     {
       "type": "SYMBOL",
-      "name": "long_string_escape"
+      "name": "_long_string_escaped"
     }
   ],
   "inline": [],

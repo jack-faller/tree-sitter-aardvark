@@ -24,6 +24,10 @@
           "named": true
         },
         {
+          "type": "long_string",
+          "named": true
+        },
+        {
           "type": "number",
           "named": true
         },
@@ -64,6 +68,10 @@
         },
         {
           "type": "lambda",
+          "named": true
+        },
+        {
+          "type": "long_string",
           "named": true
         },
         {
@@ -110,6 +118,10 @@
           "named": true
         },
         {
+          "type": "long_string",
+          "named": true
+        },
+        {
           "type": "number",
           "named": true
         },
@@ -150,6 +162,10 @@
         },
         {
           "type": "lambda",
+          "named": true
+        },
+        {
+          "type": "long_string",
           "named": true
         },
         {
@@ -196,6 +212,10 @@
           "named": true
         },
         {
+          "type": "long_string",
+          "named": true
+        },
+        {
           "type": "number",
           "named": true
         },
@@ -234,6 +254,11 @@
     }
   },
   {
+    "type": "long_string",
+    "named": true,
+    "fields": {}
+  },
+  {
     "type": "pair",
     "named": true,
     "fields": {},
@@ -255,6 +280,10 @@
         },
         {
           "type": "lambda",
+          "named": true
+        },
+        {
+          "type": "long_string",
           "named": true
         },
         {
@@ -298,6 +327,10 @@
         },
         {
           "type": "lambda",
+          "named": true
+        },
+        {
+          "type": "long_string",
           "named": true
         },
         {
@@ -345,6 +378,10 @@
           "named": true
         },
         {
+          "type": "long_string",
+          "named": true
+        },
+        {
           "type": "number",
           "named": true
         },
@@ -377,10 +414,6 @@
         }
       ]
     }
-  },
-  {
-    "type": "\"",
-    "named": false
   },
   {
     "type": "(",
