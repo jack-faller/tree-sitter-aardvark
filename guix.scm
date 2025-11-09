@@ -3,6 +3,7 @@
              (guix build-system tree-sitter)
              ((guix licenses) #:prefix license:))
 
+;; TODO: add queries/highlights.scm to project.
 (define-public tree-sitter-aardvark
   (package
    (name "tree-sitter-aardvark")
