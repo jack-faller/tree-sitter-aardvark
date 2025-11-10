@@ -116,7 +116,6 @@ bool tree_sitter_aardvark_external_scanner_scan(
         int progress = 0;
         static const uint32_t vals[] = {'\\', '>'};
         while (progress < LENGTH(vals)) {
-            printf("%c\n", (char)lexer->lookahead);
             array_push(&label, lexer->lookahead);
             progress = lexer->lookahead == vals[progress]
                        ? progress + 1 : 0;
