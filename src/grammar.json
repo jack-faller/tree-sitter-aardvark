@@ -6,8 +6,17 @@
       "type": "SEQ",
       "members": [
         {
-          "type": "PATTERN",
-          "value": ".*?\\(language (aardvark|aascript)( \\d+\\.\\d+)?\\)"
+          "type": "SYMBOL",
+          "name": "preamble"
+        },
+        {
+          "type": "ALIAS",
+          "content": {
+            "type": "PATTERN",
+            "value": "\\(language (aardvark|aascript)( \\d+\\.\\d+)?\\)"
+          },
+          "named": true,
+          "value": "language"
         },
         {
           "type": "REPEAT",
@@ -150,13 +159,17 @@
           "value": "parameters"
         },
         {
-          "type": "TOKEN",
+          "type": "FIELD",
+          "name": "dot",
           "content": {
-            "type": "PREC",
-            "value": 1,
+            "type": "TOKEN",
             "content": {
-              "type": "STRING",
-              "value": "."
+              "type": "PREC",
+              "value": 1,
+              "content": {
+                "type": "STRING",
+                "value": "."
+              }
             }
           }
         },
@@ -342,6 +355,10 @@
     {
       "type": "SYMBOL",
       "name": "_long_string_escaped"
+    },
+    {
+      "type": "SYMBOL",
+      "name": "preamble"
     }
   ],
   "inline": [],

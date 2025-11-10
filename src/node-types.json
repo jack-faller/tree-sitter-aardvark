@@ -237,7 +237,18 @@
   {
     "type": "lambda",
     "named": true,
-    "fields": {},
+    "fields": {
+      "dot": {
+        "multiple": true,
+        "required": true,
+        "types": [
+          {
+            "type": ".",
+            "named": false
+          }
+        ]
+      }
+    },
     "children": {
       "multiple": true,
       "required": false,
@@ -359,7 +370,7 @@
     "fields": {},
     "children": {
       "multiple": true,
-      "required": false,
+      "required": true,
       "types": [
         {
           "type": "block",
@@ -378,6 +389,10 @@
           "named": true
         },
         {
+          "type": "language",
+          "named": true
+        },
+        {
           "type": "long_string",
           "named": true
         },
@@ -387,6 +402,10 @@
         },
         {
           "type": "pair",
+          "named": true
+        },
+        {
+          "type": "preamble",
           "named": true
         },
         {
@@ -444,7 +463,15 @@
     "named": false
   },
   {
+    "type": "language",
+    "named": true
+  },
+  {
     "type": "number",
+    "named": true
+  },
+  {
+    "type": "preamble",
     "named": true
   },
   {

@@ -6,16 +6,14 @@
 
 /// <reference types="tree-sitter-cli/dsl" />
 // @ts-check
-
-const language = /.*?\(language (aardvark|aascript)( \d+\.\d+)?\)/;
-
+const language = /\(language (aardvark|aascript)( \d+\.\d+)?\)/;
 module.exports = grammar({
   name: "aardvark",
   extras: $ => [/\s/, $.comment],
-  externals: $ => [$._long_string, $._long_string_escaped],
+  externals: $ => [$._long_string, $._long_string_escaped, $.preamble],
 
   rules: {
-    source_file: $ => seq(language, repeat($._form)),
+    source_file: $ => seq($.preamble, alias(language, $.language), repeat($._form)),
     comment: $ => choice(/;;[^\n]*/, seq(";", $._form)),
     _form: $ => choice($.block, $.call, $.data, $.lambda, $.pair,
                        $.string, $.long_string, $.number, $.symbol),
@@ -25,7 +23,7 @@ module.exports = grammar({
     symbol: $ => (/(\\[⟨⟩\[\](){};:\s"\\]|[^⟨⟩\[\](){};:\s"\\])+/),
     _lambda_content: $ => seq(
       alias(repeat($._form_not_dot), $.parameters),
-      token(prec(1, ".")),
+      field("dot", token(prec(1, "."))),
       choice($._lambda_content, alias(repeat($._form_not_dot), $.body))),
     lambda: $ => seq("{", $._lambda_content, "}"),
     block: $ => seq("{", repeat($._form_not_dot), "}"),

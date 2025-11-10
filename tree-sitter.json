@@ -10,7 +10,8 @@
         "vrk"
       ],
       "injection-regex": "^aardvark$",
-      "class-name": "TreeSitterAardvark"
+      "class-name": "TreeSitterAardvark",
+      "highlights": "queries/highlights.scm"
     }
   ],
   "metadata": {
