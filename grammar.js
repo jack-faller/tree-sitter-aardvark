@@ -23,7 +23,7 @@ module.exports = grammar({
     symbol: $ => (/(\\[⟨⟩\[\](){};:\s"\\]|[^⟨⟩\[\](){};:\s"\\])+/),
     _lambda_content: $ => seq(
       alias(repeat($._form_not_dot), $.parameters),
-      field("dot", token(prec(1, "."))),
+      ".",
       choice($._lambda_content, alias(repeat($._form_not_dot), $.body))),
     lambda: $ => seq("{", $._lambda_content, "}"),
     block: $ => seq("{", repeat($._form_not_dot), "}"),

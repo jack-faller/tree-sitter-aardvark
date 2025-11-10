@@ -237,18 +237,7 @@
   {
     "type": "lambda",
     "named": true,
-    "fields": {
-      "dot": {
-        "multiple": true,
-        "required": true,
-        "types": [
-          {
-            "type": ".",
-            "named": false
-          }
-        ]
-      }
-    },
+    "fields": {},
     "children": {
       "multiple": true,
       "required": false,

@@ -1,6 +1,6 @@
 ["(" ")" "[" "]" "{" "}"] @punctuation.bracket
 (language) @attribute
-(lambda dot: _ @punctuation.delimiter)
+(lambda "." @punctuation.delimiter)
 (number) @number
 [(comment) (preamble)] @comment
 ((symbol) @keyword
