@@ -10,7 +10,7 @@
 (call . (symbol) @function)
 ((symbol) @operator (#match? @operator "^(\\+|-|\\*|/|=|!=|≠|>|<|>=|<=|^|'|\\||&)$"))
 (call . (symbol) @keyword
-      (#match? @keyword "^(module|package|define|import|export|use|let|type|match|if|and|or)$"))
+      (#match? @keyword "^(module|package|define|import|export|use|let|type|macro|match|if|and|or)$"))
 (call . (symbol) @keyword . (symbol) @module
       (#match? @keyword "^(module|package)$"))
 (call . (symbol) @_at . _ . (symbol) @property (#match? @_at "^at$"))
