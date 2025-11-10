@@ -20,4 +20,5 @@
 (call . (symbol) @keyword . (symbol) @module
       (#match? @keyword "^(module|package)$"))
 (call . (symbol) @_at . _ . (symbol) @property (#match? @_at "^at$"))
-(pair . (symbol) @property)
+(pair . (comment) * . (symbol) @property)
+(pair ":" @property)
