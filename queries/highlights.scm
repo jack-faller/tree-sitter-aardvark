@@ -10,7 +10,7 @@
 ((symbol) @type
  (#match? @type "^[A-Z]"))
 (symbol) @variable
-(string) @string
+[(string) (long_string)] @string
 (string_escape) @string.special
 (call . (symbol) @function)
 ((symbol) @operator
