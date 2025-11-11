@@ -4,7 +4,7 @@
 
 #define LENGTH(A) (sizeof(A)/(sizeof(A[0])))
 
-enum TokenType {LONG_STRING, LONG_STRING_ESCAPED, PREAMBLE};
+enum TokenType {LONG_STRING, LONG_STRING_ESCAPED};
 
 void * tree_sitter_aardvark_external_scanner_create() {
     return NULL;
@@ -40,59 +40,6 @@ bool tree_sitter_aardvark_external_scanner_scan(
   TSLexer *lexer,
   const bool *valid_symbols
 ) {
-    if (valid_symbols[PREAMBLE]) {
-        lexer->result_symbol = PREAMBLE;
-        enum State state = LANGUAGE;
-        unsigned int progress = 0;
-        unsigned int progress_script = 0;
-        static const uint32_t aardvark_string[] = {'(', 'l', 'a', 'n', 'g', 'u', 'a', 'g', 'e', ' ', 'a', 'a', 'r', 'd', 'v', 'a', 'r', 'k'};
-        static const uint32_t aascript_string[] = {'(', 'l', 'a', 'n', 'g', 'u', 'a', 'g', 'e', ' ', 'a', 'a', 's', 'c', 'r', 'i', 'p', 't'};
-        bool is_first_digit = true;
-        for (;;) {
-            if (lexer->lookahead == '(') lexer->mark_end(lexer);
-            switch (state) {
-            case LANGUAGE:
-                if (lexer->eof(lexer)) return false;
-                PROGRESS(progress, aardvark_string, lexer->lookahead);
-                PROGRESS(progress_script, aascript_string, lexer->lookahead);
-                lexer->advance(lexer, false);
-                if (progress == LENGTH(aardvark_string)
-                    || progress_script == LENGTH(aascript_string)) {
-                    progress_script = progress = 0;
-                    if (lexer->lookahead == ' ') {
-                        lexer->advance(lexer, false);
-                        is_first_digit = true;
-                        state = FIRST_NUMBER;
-                    } else if (lexer->lookahead == ')') {
-                        return true;
-                    }
-                }
-                break;
-            case FIRST_NUMBER:
-                if (lexer->lookahead == '.') {
-                    lexer->advance(lexer, false);
-                    state = is_first_digit ? LANGUAGE : SECOND_NUMBER;
-                    is_first_digit = true;
-                } else if ('0' <= lexer->lookahead && lexer->lookahead <= '9') {
-                    lexer->advance(lexer, false);
-                    is_first_digit = false;
-                } else {
-                    state = LANGUAGE;
-                }
-                break;
-            case SECOND_NUMBER:
-                if (lexer->lookahead == ')') {
-                    return !is_first_digit;
-                } else if ('0' <= lexer->lookahead && lexer->lookahead <= '9') {
-                    lexer->advance(lexer, false);
-                    is_first_digit = false;
-                } else {
-                    state = LANGUAGE;
-                }
-                break;
-            }
-        }
-    }
 #define RETURN(i) {out = i; goto end;}
     bool out;
     ArrayN32 label;

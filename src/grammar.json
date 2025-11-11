@@ -6,17 +6,17 @@
       "type": "SEQ",
       "members": [
         {
-          "type": "SYMBOL",
-          "name": "preamble"
-        },
-        {
           "type": "ALIAS",
           "content": {
             "type": "PATTERN",
-            "value": "\\(language (aardvark|aascript)( \\d+\\.\\d+)?\\)"
+            "value": ".+"
           },
           "named": true,
-          "value": "language"
+          "value": "preamble"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "language"
         },
         {
           "type": "REPEAT",
@@ -26,6 +26,14 @@
           }
         }
       ]
+    },
+    "language": {
+      "type": "PATTERN",
+      "value": "\\(language (\\\\[⟨⟩\\[\\](){};:\\s\"\\\\]|[^⟨⟩\\[\\](){};:\\s\"\\\\])+( \\d+\\.\\d+)?\\)"
+    },
+    "symbol": {
+      "type": "PATTERN",
+      "value": "(\\\\[⟨⟩\\[\\](){};:\\s\"\\\\]|[^⟨⟩\\[\\](){};:\\s\"\\\\])+"
     },
     "comment": {
       "type": "CHOICE",
@@ -138,10 +146,6 @@
           "value": "symbol"
         }
       ]
-    },
-    "symbol": {
-      "type": "PATTERN",
-      "value": "(\\\\[⟨⟩\\[\\](){};:\\s\"\\\\]|[^⟨⟩\\[\\](){};:\\s\"\\\\])+"
     },
     "_lambda_content": {
       "type": "SEQ",
@@ -344,10 +348,6 @@
     {
       "type": "SYMBOL",
       "name": "_long_string_escaped"
-    },
-    {
-      "type": "SYMBOL",
-      "name": "preamble"
     }
   ],
   "inline": [],
