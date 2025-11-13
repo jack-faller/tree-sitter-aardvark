@@ -353,6 +353,11 @@
     }
   },
   {
+    "type": "preamble",
+    "named": true,
+    "fields": {}
+  },
+  {
     "type": "source_file",
     "named": true,
     "root": true,
@@ -457,10 +462,6 @@
   },
   {
     "type": "number",
-    "named": true
-  },
-  {
-    "type": "preamble",
     "named": true
   },
   {

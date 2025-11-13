@@ -6,25 +6,8 @@
       "type": "SEQ",
       "members": [
         {
-          "type": "CHOICE",
-          "members": [
-            {
-              "type": "ALIAS",
-              "content": {
-                "type": "PATTERN",
-                "value": ".+"
-              },
-              "named": true,
-              "value": "preamble"
-            },
-            {
-              "type": "BLANK"
-            }
-          ]
-        },
-        {
           "type": "SYMBOL",
-          "name": "language"
+          "name": "_pre"
         },
         {
           "type": "REPEAT",
@@ -35,9 +18,38 @@
         }
       ]
     },
-    "language": {
-      "type": "PATTERN",
-      "value": "\\(language (\\\\[⟨⟩\\[\\](){};:\\s\"\\\\]|[^⟨⟩\\[\\](){};:\\s\"\\\\])+( \\d+\\.\\d+)?\\)"
+    "_pre": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "ALIAS",
+          "content": {
+            "type": "REPEAT",
+            "content": {
+              "type": "PREC",
+              "value": 0,
+              "content": {
+                "type": "TOKEN",
+                "content": {
+                  "type": "PATTERN",
+                  "value": "."
+                }
+              }
+            }
+          },
+          "named": true,
+          "value": "preamble"
+        },
+        {
+          "type": "ALIAS",
+          "content": {
+            "type": "PATTERN",
+            "value": "\\(language (\\\\[⟨⟩\\[\\](){};:\\s\"\\\\]|[^⟨⟩\\[\\](){};:\\s\"\\\\])+( \\d+\\.\\d+)?\\)"
+          },
+          "named": true,
+          "value": "language"
+        }
+      ]
     },
     "symbol": {
       "type": "PATTERN",
