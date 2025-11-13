@@ -20,7 +20,8 @@ module.exports = grammar({
   externals: $ => [$._long_string, $._long_string_escaped],
 
   rules: {
-    source_file: $ => seq(alias(/.+/, $.preamble), $.language, repeat($._form)),
+    source_file: $ =>
+      seq(optional(alias(/.+/, $.preamble)), $.language, repeat($._form)),
     language: $ => language,
     symbol: $ => symbol,
     comment: $ => choice(/;;[^\n]*/, seq(";", $._form)),
